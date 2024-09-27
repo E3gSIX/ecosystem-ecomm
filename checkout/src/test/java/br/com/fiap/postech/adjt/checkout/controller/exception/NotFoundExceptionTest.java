@@ -6,10 +6,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NotFoundExceptionTest {
 
-    @Test
-    void testNotFoundException() {
-        NotFoundException exception = new NotFoundException("Resource not found");
+	@Test
+	void testNotFoundException() {
+		NotFoundException exception = new NotFoundException("Resource not found");
 
-        assertEquals("Resource not found", exception.getMessage());
-    }
+		assertEquals("Resource not found", exception.getMessage());
+	}
 }

@@ -7,11 +7,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StandardErrorExceptionTest {
 
-    @Test
-    void testStandardErrorException() {
-        StandardError standardError = StandardError.create(HttpStatus.INTERNAL_SERVER_ERROR, "Internal error", "/test-uri");
-        StandardErrorException exception = new StandardErrorException(standardError);
+	@Test
+	void testStandardErrorException() {
+		StandardError standardError = StandardError.create(HttpStatus.INTERNAL_SERVER_ERROR, "Internal error",
+				"/test-uri");
+		StandardErrorException exception = new StandardErrorException(standardError);
 
-        assertEquals(standardError, exception.getStandardError());
-    }
+		assertEquals(standardError, exception.getStandardError());
+	}
 }

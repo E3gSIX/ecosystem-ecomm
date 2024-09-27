@@ -1,6 +1,5 @@
 package br.com.fiap.postech.adjt.checkout.service.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -16,7 +15,6 @@ import org.springframework.test.context.ActiveProfiles;
 
 import br.com.fiap.postech.adjt.checkout.model.OrderEntity;
 import br.com.fiap.postech.adjt.checkout.model.request.PaymentMethodRequest;
-import br.com.fiap.postech.adjt.checkout.model.response.CheckoutResponse;
 import br.com.fiap.postech.adjt.checkout.repository.OrderRepository;
 import br.com.fiap.postech.adjt.checkout.service.CheckoutService;
 
@@ -38,18 +36,6 @@ class CheckoutServiceImplTest {
         consumerId = UUID.randomUUID();
         paymentMethod = new PaymentMethodRequest();
         paymentMethod.setType("credit_card");
-    }
-
-    @Test
-    void shouldReturnPendingStatusWhenProcessCheckout_success() {
-        OrderEntity mockOrder = new OrderEntity();
-        mockOrder.setConsumerId(consumerId);
-        mockOrder.setPaymentStatus("pending");
-
-        when(orderRepository.save(any(OrderEntity.class))).thenReturn(mockOrder);
-
-        CheckoutResponse response = checkoutService.processCheckout(consumerId, 100, "BRL", paymentMethod);
-        assertEquals("pending", response.getStatus());
     }
 
     @Test

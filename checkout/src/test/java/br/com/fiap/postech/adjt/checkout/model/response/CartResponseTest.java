@@ -1,26 +1,51 @@
 package br.com.fiap.postech.adjt.checkout.model.response;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
 
 class CartResponseTest {
 
-    private CartResponse cartResponse;
+	@Test
+	void testAllArgsConstructor() {
+		Long id = 1L;
+		String customerId = "customer123";
+		List<CartItemResponse> items = List.of(new CartItemResponse());
+		CartResponse cartResponse = new CartResponse(id, customerId, items);
+		assertEquals(id, cartResponse.getId());
+		assertEquals(customerId, cartResponse.getCustomerId());
+		assertEquals(items, cartResponse.getItems());
+	}
 
-    @BeforeEach
-    void setUp() {
-        CartItemResponse item1 = new CartItemResponse(1L, 2);
-        CartItemResponse item2 = new CartItemResponse(2L, 3);
-        cartResponse = new CartResponse("123e4567-e89b-12d3-a456-426614174000", List.of(item1, item2));
-    }
+	@Test
+	void testPartialConstructor() {
+		String customerId = "customer123";
+		List<CartItemResponse> items = List.of(new CartItemResponse());
+		CartResponse cartResponse = new CartResponse(customerId, items);
+		assertNull(cartResponse.getId());
+		assertEquals(customerId, cartResponse.getCustomerId());
+		assertEquals(items, cartResponse.getItems());
+	}
 
-    @Test
-    void testGettersAndSetters() {
-        assertEquals("123e4567-e89b-12d3-a456-426614174000", cartResponse.getCustomerId());
-        assertEquals(2, cartResponse.getItems().size());
-        cartResponse.setCustomerId("new-customer-id");
-        assertEquals("new-customer-id", cartResponse.getCustomerId());
-    }
+	@Test
+	void testNoArgsConstructor() {
+		CartResponse cartResponse = new CartResponse();
+		assertNull(cartResponse.getId());
+		assertNull(cartResponse.getCustomerId());
+		assertNull(cartResponse.getItems());
+	}
+
+	@Test
+	void testSettersAndGetters() {
+		CartResponse cartResponse = new CartResponse();
+		Long id = 1L;
+		String customerId = "customer123";
+		List<CartItemResponse> items = List.of(new CartItemResponse());
+		cartResponse.setId(id);
+		cartResponse.setCustomerId(customerId);
+		cartResponse.setItems(items);
+		assertEquals(id, cartResponse.getId());
+		assertEquals(customerId, cartResponse.getCustomerId());
+		assertEquals(items, cartResponse.getItems());
+	}
 }

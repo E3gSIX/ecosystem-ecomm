@@ -6,10 +6,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NotAuthorizedExceptionTest {
 
-    @Test
-    void testNotAuthorizedException() {
-        NotAuthorizedException exception = new NotAuthorizedException("Not authorized");
+	@Test
+	void testNotAuthorizedException() {
+		NotAuthorizedException exception = new NotAuthorizedException("Not authorized");
 
-        assertEquals("Not authorized", exception.getMessage());
-    }
+		assertEquals("Not authorized", exception.getMessage());
+	}
 }

@@ -13,82 +13,87 @@ import static org.mockito.Mockito.*;
 
 class AdviceExceptionHandlerTest {
 
-    @Mock
-    private HttpServletRequest request;
+	@Mock
+	private HttpServletRequest request;
 
-    private AdviceExceptionHandler adviceExceptionHandler;
+	private AdviceExceptionHandler adviceExceptionHandler;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        adviceExceptionHandler = new AdviceExceptionHandler();
-        when(request.getRequestURI()).thenReturn("/test-uri");
-    }
+	@BeforeEach
+	void setUp() {
+		MockitoAnnotations.openMocks(this);
+		adviceExceptionHandler = new AdviceExceptionHandler();
+		when(request.getRequestURI()).thenReturn("/test-uri");
+	}
 
-    @Test
-    void testHandleIllegalArgumentException() {
-        IllegalArgumentException exception = new IllegalArgumentException("Invalid argument");
+	@Test
+	void testHandleIllegalArgumentException() {
+		IllegalArgumentException exception = new IllegalArgumentException("Invalid argument");
 
-        ResponseEntity<StandardError> response = adviceExceptionHandler.handleIllegalArgumentException(exception, request);
+		ResponseEntity<StandardError> response = adviceExceptionHandler.handleIllegalArgumentException(exception,
+				request);
 
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("Invalid argument", response.getBody().message());
-        assertEquals("/test-uri", response.getBody().path());
-    }
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+		assertEquals("Invalid argument", response.getBody().message());
+		assertEquals("/test-uri", response.getBody().path());
+	}
 
-    @Test
-    void testHandleUnsupportedOperationException() {
-        UnsupportedOperationException exception = new UnsupportedOperationException("Operation not supported");
+	@Test
+	void testHandleUnsupportedOperationException() {
+		UnsupportedOperationException exception = new UnsupportedOperationException("Operation not supported");
 
-        ResponseEntity<StandardError> response = adviceExceptionHandler.handleUnsupportedOperationException(exception, request);
+		ResponseEntity<StandardError> response = adviceExceptionHandler.handleUnsupportedOperationException(exception,
+				request);
 
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("Operation not supported", response.getBody().message());
-        assertEquals("/test-uri", response.getBody().path());
-    }
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+		assertEquals("Operation not supported", response.getBody().message());
+		assertEquals("/test-uri", response.getBody().path());
+	}
 
-    @Test
-    void testHandleNotFoundException() {
-        NotFoundException exception = new NotFoundException("Resource not found");
+	@Test
+	void testHandleNotFoundException() {
+		NotFoundException exception = new NotFoundException("Resource not found");
 
-        ResponseEntity<StandardError> response = adviceExceptionHandler.handleNotFoundException(exception, request);
+		ResponseEntity<StandardError> response = adviceExceptionHandler.handleNotFoundException(exception, request);
 
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-        assertEquals("Resource not found", response.getBody().message());
-        assertEquals("/test-uri", response.getBody().path());
-    }
+		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+		assertEquals("Resource not found", response.getBody().message());
+		assertEquals("/test-uri", response.getBody().path());
+	}
 
-    @Test
-    void testHandleNotAuthorizedException() {
-        NotAuthorizedException exception = new NotAuthorizedException("Not authorized");
+	@Test
+	void testHandleNotAuthorizedException() {
+		NotAuthorizedException exception = new NotAuthorizedException("Not authorized");
 
-        ResponseEntity<StandardError> response = adviceExceptionHandler.handleNotAuthorizedException(exception, request);
+		ResponseEntity<StandardError> response = adviceExceptionHandler.handleNotAuthorizedException(exception,
+				request);
 
-        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
-        assertEquals("Not authorized", response.getBody().message());
-        assertEquals("/test-uri", response.getBody().path());
-    }
+		assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
+		assertEquals("Not authorized", response.getBody().message());
+		assertEquals("/test-uri", response.getBody().path());
+	}
 
-    @Test
-    void testHandleStandardErrorException() {
-        StandardError standardError = StandardError.create(HttpStatus.INTERNAL_SERVER_ERROR, "Internal error", "/test-uri");
-        StandardErrorException exception = new StandardErrorException(standardError);
+	@Test
+	void testHandleStandardErrorException() {
+		StandardError standardError = StandardError.create(HttpStatus.INTERNAL_SERVER_ERROR, "Internal error",
+				"/test-uri");
+		StandardErrorException exception = new StandardErrorException(standardError);
 
-        ResponseEntity<StandardError> response = adviceExceptionHandler.handleStandardErrorException(exception, request);
+		ResponseEntity<StandardError> response = adviceExceptionHandler.handleStandardErrorException(exception,
+				request);
 
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertEquals("Internal error", response.getBody().message());
-        assertEquals("/test-uri", response.getBody().path());
-    }
+		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+		assertEquals("Internal error", response.getBody().message());
+		assertEquals("/test-uri", response.getBody().path());
+	}
 
-    @Test
-    void testHandleGenericException() {
-        Exception exception = new Exception("Generic error");
+	@Test
+	void testHandleGenericException() {
+		Exception exception = new Exception("Generic error");
 
-        ResponseEntity<StandardError> response = adviceExceptionHandler.handleGenericException(exception, request);
+		ResponseEntity<StandardError> response = adviceExceptionHandler.handleGenericException(exception, request);
 
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertEquals("Generic error", response.getBody().message());
-        assertEquals("/test-uri", response.getBody().path());
-    }
+		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+		assertEquals("Generic error", response.getBody().message());
+		assertEquals("/test-uri", response.getBody().path());
+	}
 }
